@@ -5,7 +5,7 @@ import "./HomePage.scss";
 import * as RoutePaths from "../../routes/paths";
 import { EAuthToken } from "../../interfaces/user-interfaces";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import { Avatar, Menu, MenuItem } from "@mui/material";
+import { Avatar, Badge, Menu, MenuItem } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -15,11 +15,15 @@ import { TRootState } from "../../stores/reducers";
 import { requestPermission } from "../../firebase/firebase-app";
 import { getNotificationAction } from "../../stores/actions/notification-actions";
 import { createDeviceToken } from "../../services/user-service";
+import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state: TRootState) => state.authUser.userData);
-
+  const notifications = useSelector(
+    (state: TRootState) => state.notificationReducer.notifications
+  );
+  const [anchorElNoti, setAnchorElNoti] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -52,6 +56,16 @@ const HomePage = () => {
     userData && dispatch(getNotificationAction(userData.id));
   };
 
+  const handleClickNotificationIcon = (
+    event: React.MouseEvent<HTMLDivElement>
+  ) => {
+    setAnchorElNoti(event.currentTarget);
+  };
+
+  const handleCloseNotification = () => {
+    setAnchorElNoti(null);
+  };
+
   useEffect(() => {
     requestPermission(handleEventWhenHaveNoti, userData?.id);
     handleGetNotification();
@@ -68,7 +82,24 @@ const HomePage = () => {
       </div>
       <div className="HomePage__outlet">
         <div className="HomePage__outlet-actions">
-          <div>
+          <div style={{ display: "flex", gap: "8px" }}>
+            <div
+              className="HomePage__notification-icon"
+              onClick={(e) => handleClickNotificationIcon(e)}
+            >
+              <Badge
+                badgeContent={notifications.filter((noti) => !noti.read).length}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+              >
+                <NotificationsRoundedIcon
+                  sx={{ width: "32px", height: "32px" }}
+                />
+              </Badge>
+            </div>
             <div
               className="HomePage__outlet-user"
               onClick={(e) => handleClickUser(e)}
