@@ -16,6 +16,7 @@ import { requestPermission } from "../../firebase/firebase-app";
 import { getNotificationAction } from "../../stores/actions/notification-actions";
 import { createDeviceToken } from "../../services/user-service";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
+import Notification from "../../components/notification/Notification";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -114,6 +115,11 @@ const HomePage = () => {
                 <KeyboardArrowDownRoundedIcon />
               </div>
             </div>
+            <Notification
+              anchorEl={anchorElNoti}
+              handleClose={handleCloseNotification}
+              notifications={notifications}
+            />
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
