@@ -7,6 +7,10 @@
 
   min-height: 100vh;
 
+  &__notification-icon {
+    cursor: pointer;
+  }
+
   &__sidebar {
     margin-left: 10px;
     position: fixed;

@@ -37,11 +37,10 @@ export const equipmentColumn: GridColDef[] = [
     headerName: "Name",
     width: 150,
   },
-
   {
     field: "type",
     headerName: "Type",
-    width: 100,
+    width: 150,
     renderCell: (params: GridRenderCellParams<IEquipmentDetail>) => (
       <TypeColumn categoryId={params.value} />
     ),
@@ -49,9 +48,9 @@ export const equipmentColumn: GridColDef[] = [
   {
     field: "description",
     headerName: "Description",
-    width: 350,
+    width: 300,
     valueGetter: (params: GridValueGetterParams) => {
-      return "The morning air was crisp and sharp as Sean walked down the road. The pavement was slippery and cold beneath his feet, like a slimy, wet fish. For more information about words that help describe people, places and things, look at the topic on describing words (Adjectives).";
+      return `${params.value}`;
     },
   },
   {
