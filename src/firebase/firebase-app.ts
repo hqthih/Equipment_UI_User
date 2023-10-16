@@ -19,7 +19,10 @@ export function requestPermission(cb?: () => void, userId?: number) {
       console.log("hehe");
       onMessage(messaging, (payload) => {
         cb?.();
-        toastInfo(payload.notification.body, payload.notification.title);
+        toastInfo(
+          payload?.notification?.body || "",
+          payload?.notification?.title
+        );
         // Xử lý thông báo ở đây
       });
       getToken(messaging, {
