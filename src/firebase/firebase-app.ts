@@ -18,10 +18,8 @@ export function requestPermission(cb?: () => void, userId?: number) {
     if (permission === "granted") {
       console.log("hehe");
       onMessage(messaging, (payload) => {
-        console.log(messaging);
-        console.log(payload);
         cb?.();
-        toastInfo("You have a new request !!", "Notification");
+        toastInfo(payload.notification.body, payload.notification.title);
         // Xử lý thông báo ở đây
       });
       getToken(messaging, {
