@@ -24,10 +24,15 @@ const NotificationItem = ({ notification, handleClose }: IProps) => {
 
   const handleClickNotification = () => {
     handleClose();
+
     dispatch(
       readNotificationAction(notification.id, () => {
         useData && dispatch(getNotificationAction(useData.id));
-        navigate(routePath.REQUEST_PAGE);
+        if (notification.type === "REQUEST") {
+          navigate(routePath.REQUEST_PAGE);
+        } else if (notification.type === "EQUIPMENT") {
+          navigate(routePath.EQUIPMENT);
+        }
       })
     );
   };
