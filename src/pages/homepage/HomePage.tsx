@@ -53,7 +53,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    requestPermission(handleEventWhenHaveNoti);
+    requestPermission(handleEventWhenHaveNoti, userData?.id);
     handleGetNotification();
   }, []);
 
